@@ -1,0 +1,24 @@
+SBSMS DATABASE / NETBEANS UPDATE NOTES
+
+Changes made in this update:
+- DatabaseConnection no longer drops the announcements table at startup.
+- Existing databases receive the residents.is_pregnant column if missing.
+- Existing databases receive appointments.request_id if missing.
+- New database setup includes pregnancy eligibility and appointment-to-request linkage.
+- Request creation with an appointment now stores the generated request ID in appointments.request_id.
+- Appointment times are normalized to a consistent hh:mm AM/PM format before conflict checking and insertion.
+- Approve/reject/cancel status updates target appointments by request_id rather than guessing by resident + service + purpose.
+- Existing records are preserved; legacy appointments with NULL request_id are not guessed or automatically linked.
+- Existing First-Time Jobseeker Certification fee rule remains: the first request is free and later requests use the configured fee.
+
+Before running:
+1. Back up the sbsms database in phpMyAdmin.
+2. Ensure XAMPP MySQL is running.
+3. Open the project in NetBeans and confirm MySQL Connector/J is included in project libraries.
+4. Clean and Build, then run the app.
+5. Test request creation, appointment booking, approval/rejection, and cancellation.
+
+Limitations:
+- I could not connect to your live XAMPP database from this environment.
+- I did not execute a full NetBeans build here.
+- Legacy appointments whose request_id is NULL need manual review if you want to associate them with existing service requests.

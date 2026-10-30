@@ -1,0 +1,18 @@
+SBSMS UPDATED SYSTEM NOTES
+
+Implemented in this update:
+- Signup first attempts to match an existing Approved resident record using first/middle/last name, age, address, contact number, ID type, gender, and disability field. A unique match with no existing user account creates an Approved account using the existing Resident ID.
+- A duplicate account is rejected instead of creating another login.
+- A new/unmatched applicant receives an internal REG-... key and Pending status. No public numeric Resident ID is shown or assigned at signup.
+- When an admin approves a REG-... registration, the resident record and user account are moved to a newly generated numeric ID in one transaction; both become Approved.
+- Resident ID sequence is persistent and is not reduced when residents are deleted.
+- Added appointment_date and appointment_time columns to service_requests through additive schema initialization and included a safe SQL update script.
+- Login now reports the underlying JDBC/SQL error when authentication fails due to a database exception.
+- NetBeans clean build tested successfully in this environment.
+
+Important limits:
+- This environment cannot connect to your local XAMPP/MySQL instance, so a live database connection, data migration, and runtime signup/approval were not verified here.
+- MySQL Connector/J must be placed at lib/mysql-connector-j-9.4.0.jar (see lib/README.txt). It is not bundled because no connector JAR was available in the supplied project/environment.
+- The existing appointments table is intentionally preserved. This update adds appointment fields to service_requests but does not claim a complete removal/migration of every old appointment workflow. Verify existing appointment records and all screens before retiring the legacy table.
+- Existing resident matching requires an exact match on multiple fields. If the barangay record is inaccurate, staff should correct/verify it rather than weakening identity matching to a name-only check.
+- Back up the database before running the app or the included SQL script. No tables are dropped by this update.

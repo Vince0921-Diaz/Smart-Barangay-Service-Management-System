@@ -1,0 +1,20 @@
+SBSMS FUNCTIONALITY PASS - JAVA SOURCE CHECK
+
+Preserved the existing NetBeans Swing forms and user-added Resident Management controls.
+
+Checked/fixed in this pass:
+- All Java source files compile with Java 17 when the NetBeans AbsoluteLayout dependency is supplied.
+- Login shows an invalid-credentials message when the ID/password does not match.
+- Forgot Password verifies the account ID and registered full name, uses password fields, requires confirmation, and validates an 8-character password with a letter, number, and symbol.
+- Sign Up validates required inputs, selected combo boxes, name characters, age, contact number, ID confirmation, password strength and matching confirmation; it saves a Pending resident and login account.
+- Resident Management table is read-only, includes the resident fields in a consistent order, and resident approval/rejection updates resident and user account statuses.
+- Staff Management is filtered to Staff role accounts.
+- Service Request table uses six columns with date and time separated, is read-only, and status counts load from the database.
+- Appointment queue prioritizes residents marked PWD and sorts by date/time after priority; status selection reads the Status column rather than Time.
+- Announcement table is removed during the next database initialization; no announcement feature remains in Java or setup SQL.
+
+Environment limitations:
+- The MySQL Connector/J JAR is not bundled. Add mysql-connector-j-9.4.0.jar to the project's lib folder and ensure the NetBeans AbsoluteLayout library is installed.
+- The source compilation check used temporary stand-in classes for AbsoluteLayout, so it validates Java syntax/types but not the actual layout library or runtime UI.
+- No live XAMPP/MySQL instance was available for end-to-end database testing. Start MySQL, import database/sbsms_setup.sql if needed, then test signup, approval, password reset, service requests, and appointments.
+- Passwords remain stored as plaintext in the existing academic project schema; do not use real passwords or deploy this project in production.

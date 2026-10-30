@@ -1,0 +1,18 @@
+SBSMS UPDATE NOTES
+
+Source project: user-provided 11111.zip.
+
+Changes in this update:
+- Login demo identifiers changed to ADM001 (Admin) and STF001 (Staff); resident registration continues to generate numeric VARCHAR IDs such as 001.
+- Service Management table now includes Fee and Status as separate columns and disables direct cell editing.
+- Service request DAO calculates the First-Time Jobseeker Certification fee server-side: first request for that resident/service is free; later requests use the configured service fee.
+- Service request and appointment creation remains transactional.
+- My Requests allows cancellation by double-clicking a selected Pending request; approved/rejected/completed requests cannot be cancelled through that action.
+- Admin Service Request Management shows a priority label for PWD/disability and seniors aged 60+, and the table is read-only.
+- Announcements table is dropped during database initialization, matching the project's current no-announcements requirement.
+
+Important limitations:
+- Pregnant-person priority is not reliably supported by the current schema because the resident table has no pregnancy/eligibility field. Add a verified field or staff-verified priority flag before treating this as fully implemented.
+- The current appointment table has no explicit service_request_id foreign key. Status updates attempt to match requests and appointments by resident, service, and purpose; adding a proper foreign key is the recommended next schema migration.
+- Monthly analytics still needs a percentage column added to the month table model to display both total and percentage in the GUI.
+- Test against a backup of your own XAMPP database before using real data. Passwords are currently stored as plaintext in this academic prototype.

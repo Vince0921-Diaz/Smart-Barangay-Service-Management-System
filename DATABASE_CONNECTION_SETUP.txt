@@ -1,0 +1,20 @@
+SBSMS DATABASE CONNECTION SETUP
+
+The project is configured for the existing local XAMPP/MySQL database:
+  Host: localhost
+  Port: 3306
+  Database: sbsms
+  Username: root
+  Password: blank (the default XAMPP setup; change DatabaseConnection.java if yours differs)
+
+IMPORTANT: The MySQL Connector/J driver is a separate dependency and is not included in this archive.
+1. Download the MySQL Connector/J 9.4.0 Platform Independent ZIP from the official MySQL website:
+   https://dev.mysql.com/downloads/connector/j/
+2. Extract it and copy mysql-connector-j-9.4.0.jar into this project's lib folder.
+3. Open the project in NetBeans. If needed, right-click Libraries > Add JAR/Folder and select that JAR.
+4. Start Apache and MySQL in XAMPP. MySQL should be listening on port 3306.
+5. Run Clean and Build, then run the project.
+6. At startup, SBSMS tests the database connection. If it fails, the error dialog displays the underlying cause.
+
+Existing database records are not dropped or recreated by this setup guide. Back up sbsms before running
+application startup migrations. The connection cannot be confirmed until tested on the computer running XAMPP.

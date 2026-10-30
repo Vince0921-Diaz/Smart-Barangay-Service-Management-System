@@ -1,0 +1,17 @@
+SBSMS appointment and navigation update
+
+Changes:
+- Appointment date field displays YYYY-MM-DD as a gray hint.
+- Appointment time field displays 7:30 AM as a gray hint.
+- Appointment validation requires a future date.
+- Office appointment hours are 7:30 AM to 5:00 PM.
+- 12:00 PM to 1:00 PM is blocked as lunch break.
+- Appointment times are sent to MariaDB as SQL TIME values (HH:mm:ss).
+- Slot conflict checks compare SQL TIME values and block Pending/Approved appointments only.
+- Service Request Management navigation now displays an error dialog if the form fails to open.
+
+Important:
+- This project still requires the NetBeans AbsoluteLayout library and MySQL Connector/J.
+- The supplied ZIP did not include either JAR. The project cannot compile in a clean environment until those libraries are added in NetBeans.
+- Open the project, right-click Libraries > Add JAR/Folder, add AbsoluteLayout and mysql-connector-j, then Clean and Build.
+- These changes have not been tested against your live XAMPP database.

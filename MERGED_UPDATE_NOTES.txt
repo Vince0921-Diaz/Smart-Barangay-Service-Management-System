@@ -1,0 +1,22 @@
+SBSMS MERGED UPDATE NOTES
+
+This archive combines the latest project source (888888(1).zip) with the password-reset components from SBSMS_OTP_PASSWORD_RESET_IMPLEMENTED.zip.
+
+Included changes:
+- Forgot Password button opens the reset form.
+- OTP reset service validates OTP, rejects expired and previously used OTPs, validates matching/strong passwords, hashes the new password, and consumes the OTP in the same database transaction as the password update.
+- Added password_reset_otps SQL schema.
+- Password reset UI and PasswordUtil helper.
+- Resident profile Disabilities value is read-only.
+- Admin Resident Management table is read-only and selecting a row displays the resident's details in non-editable fields.
+- Staff IDs are generated sequentially as STF001, STF002, ... based on existing Staff IDs with the STF prefix.
+- Queue numbers display with three digits (001, 002, ...), and queue-number search uses an exact match rather than substring matching.
+- Report percentage formatting explicitly uses Locale.ROOT; zero values display as 0.0%.
+
+IMPORTANT:
+1. Back up the current MySQL database before running any SQL changes.
+2. Run database/password_reset_otp.sql against the same database configured in database/DatabaseConnection.java.
+3. Real OTP delivery is NOT configured. The project still needs an SMS gateway integration to send the generated OTP to the registered contact number. Do not expose generated OTPs in production.
+4. Existing staff records with numeric IDs (for example 202) are not automatically renamed because their IDs may be referenced by other tables or login accounts. New staff accounts will use STF### IDs. If you want to migrate existing staff IDs, back up the database and update all related references consistently.
+5. The ERD image/source was not included in the uploaded ZIP, so its visual accuracy could not be verified. The SQL setup schema remains in database/sbsms_setup.sql; compare the ERD against that schema and any existing database tables.
+6. Full application build depends on the NetBeans libraries already configured on the user's machine, including AbsoluteLayout and MySQL Connector/J.

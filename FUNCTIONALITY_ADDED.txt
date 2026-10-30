@@ -1,0 +1,33 @@
+SBSMS FUNCTIONALITY UPDATE — GOGOGO PROJECT COPY
+
+The existing NetBeans GUI forms have been preserved; changes focus on wiring and correcting functionality rather than redesigning screen sizes or layouts.
+
+Reviewed and updated:
+- Made the MySQL connection fail with a useful SQLException instead of returning null and causing downstream NullPointerExceptions.
+- Changed the MySQL Connector/J reference from a machine-specific Windows path to a project-relative lib path.
+- Set Java source/target compatibility to JDK 17 so the project can build on JDK 17 or later.
+- Preserved resident signup validation, generated resident IDs, Pending account status, original-ID confirmation, and approval workflow.
+- Wired the Login screen's Sign Up button and corrected the duplicate password-show listener issue.
+- Routed database-authenticated accounts to Admin, Staff, or Resident dashboards according to role.
+- Populated the resident service selector from active database services and displayed the selected service's description and fee.
+- Added validation and transactional saving for service requests submitted with appointments, including future-date, time-format, office-hour, lunch-break, and occupied-slot checks.
+- Added the missing BookAppointmentF screen referenced by the existing navigation, with service selection, fee display, and appointment validation.
+- Corrected Resident Management's table row mapping and update-field mapping; selection now loads all available resident details into the existing fields.
+- Wired search and double-click status updates on staff request/resident/appointment tables.
+- Filled previously empty service-layer classes and StaffDAO with database-backed operations.
+- Added First-Time Jobseeker Certification to the setup SQL and automatic service seeding.
+- Updated README with local setup instructions and demo login details.
+
+Setup still required on the target computer:
+1. Start MySQL in XAMPP.
+2. Copy mysql-connector-j-9.4.0.jar into the project's lib folder (the third-party JAR is not bundled in this ZIP).
+3. Ensure NetBeans has its AbsoluteLayout library available.
+4. Import database/sbsms_setup.sql in phpMyAdmin, or let the app initialize the schema on its first database connection.
+5. Open the project in NetBeans and Clean and Build.
+
+Demo credentials:
+- Admin: ID 301 / password admin123!
+- Staff: ID 201 / password staff123!
+- Resident: sign up, then have the account approved before logging in.
+
+Security note: This remains a classroom/demo application. Resident passwords are stored as entered, and the built-in admin/staff demo credentials are hard-coded; do not deploy it for real resident data without adding password hashing and stronger account management.

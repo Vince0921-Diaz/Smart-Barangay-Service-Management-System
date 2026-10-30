@@ -1,0 +1,12 @@
+SBSMS combined fixes
+
+1. Registration success message no longer exposes the Resident ID while account is pending. The ID is still an internal database key because the current schema uses it as the primary key and as foreign-key target. When the admin approves a resident, the approval confirmation displays the ID so it can be communicated to the resident. A full deferred-ID redesign would require changing primary/foreign-key architecture and is not included in this safe patch.
+2. Resident Profile allows editing only First Name, Middle Name, Last Name, Age, Address and Contact Number. ID Number, Gender, ID Type and Disabilities are read-only and retained from the database during save.
+3. Forgot Password now requests ID Number, First Name, Middle Name and Last Name separately. Validation compares those components against the residents table. Middle name may be left blank if the resident has no middle name.
+4. Resident Overview report removes Other / Unspecified without deleting records. Percentages remain relative to total residents.
+5. Admin resident detail form is view-only; Edit Resident is disabled. Approve/Reject remain separate status actions.
+6. Service request status update permits Pending/Rejected requests to be approved, but keeps Cancelled and Completed requests closed. Appointment status follows the request update when it is not cancelled/completed.
+7. Removed an absolute Windows-specific MySQL connector path from NetBeans project properties. Keep Connector/J in the project lib folder and ensure the NetBeans AbsoluteLayout library is configured.
+
+Database: database/SBSMS_ALL_FIXES_MIGRATION.sql
+Backup the database before applying the migration. Do not drop or recreate the existing sbsms database.
